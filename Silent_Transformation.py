@@ -52,5 +52,25 @@ def view_progress():
 # Function Call
 view_progress()
 
+#update entry
+def update_entry():
+    search_date = input("\nWhich date's data do you wanna update? (DD-MM-YYYY) : ")
+    new_pushups = int(input("Write correct push-ups counts : "))
+
+    conn = sqlite3.connect('my_growth_tracker.db')
+    cursor = conn.cursor()
+
+    #update query
+    cursor.execute('''
+        UPDATE daily_logs
+        SET pushups = ?
+        WHERE date = ?
+''',(new_pushups,search_date))
+
+    conn.commit()
+    print(f"The data for date {search_date} has been updated")
+
+    conn.close()
+
 # Sab kaam khatam hone ke baad connection band karein
 db.close()

@@ -71,6 +71,24 @@ def update_entry():
     print(f"The data for date {search_date} has been updated")
 
     conn.close()
+  
+#delete entry
+def delete_entry():
+    search_date = input("\nWhich date's data do you wanna delete? (DD-MM-YYYY) : ")
+
+    conn = sqlite3.connect('my_growth_tracker.db')
+    cursor = conn.cursor()
+
+    #delete query
+    cursor.execute('''
+        DELETE FROM daily_logs
+        WHERE date = ?
+''',(search_date))
+
+    conn.commit()
+    print(f"The data for date {search_date} has been deleted")
+
+    conn.close()
 
 # Sab kaam khatam hone ke baad connection band karein
 db.close()
